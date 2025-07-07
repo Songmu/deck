@@ -170,6 +170,7 @@ The system continues to operate despite an arbitrary number of messages being dr
 - Link ( `[Link](https://example.com)` )
 - Angle bracket autolinks ( `<https://example.com>` )
 - Code ( <code>\`code\`</code> )
+- Quote ( `<q>quoted text</q>` )
 - `<br>` (for newline)
 - Image (`![Image](path/to/image.png)` )
 
@@ -185,6 +186,7 @@ Create a layout named `style` and add a `Text box` to enter specific word. The s
 | `italic` | style for *italic*. |
 | `link` | style for [link](#). |
 | `code` | style for `code`. |
+| `quote` | style for `<q>quoted text</q>`. |
 | (other word) | style for content of inline HTML elements with matching class name ( e.g. `<span class="notice">THIS IS NOTICE</span>` ) |
 
 #### Code blocks to images

@@ -446,6 +446,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 		return frags, images, nil
 	}
 	var className string
+	var inQuote bool
 	for c := n.FirstChild(); c != nil; c = c.NextSibling() {
 		switch childNode := c.(type) {
 		case *ast.Emphasis:
@@ -460,6 +461,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 					Bold:          (childNode.Level == 2) || child.Bold,
 					Italic:        (childNode.Level == 1) || child.Italic,
 					Code:          child.Code,
+					Quote:         inQuote || child.Quote,
 					SoftLineBreak: child.SoftLineBreak,
 					ClassName:     className,
 				})
@@ -479,6 +481,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 				Bold:          children[0].Bold,
 				Italic:        children[0].Italic,
 				Code:          children[0].Code,
+				Quote:         inQuote || children[0].Quote,
 				SoftLineBreak: children[0].SoftLineBreak,
 				ClassName:     className,
 			})
@@ -489,6 +492,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 			frags = append(frags, &deck.Fragment{
 				Value:     label,
 				Link:      url,
+				Quote:     inQuote,
 				ClassName: className,
 			})
 		case *ast.Text:
@@ -503,6 +507,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 			frags = append(frags, &deck.Fragment{
 				Value:         convert(childNode.Segment.Value(b)),
 				SoftLineBreak: childNode.SoftLineBreak(),
+				Quote:         inQuote,
 				ClassName:     className,
 			})
 		case *ast.Image:
@@ -527,6 +532,10 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 			// Check if it's a closing tag
 			if strings.HasPrefix(htmlContent, "</") && strings.HasSuffix(htmlContent, ">") {
 				className = "" // Reset class attribute for closing tags
+				// Check if it's a closing </q> tag
+				if strings.HasPrefix(htmlContent, "</q>") {
+					inQuote = false
+				}
 				continue
 			}
 
@@ -536,6 +545,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 					Value:         "\n",
 					Bold:          false,
 					SoftLineBreak: false,
+					Quote:         inQuote,
 					ClassName:     className,
 				})
 				className = "" // Reset class attribute
@@ -564,17 +574,25 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 					className = matches[2] // For single quotes
 				}
 			}
+
+			// Check if it's an opening <q> tag
+			if strings.HasPrefix(htmlContent, "<q") {
+				inQuote = true
+			}
+
 		case *ast.String:
 			// For String nodes, try to get their content
 			if childNode.Value != nil {
 				frags = append(frags, &deck.Fragment{
 					Value:     convert(childNode.Value),
+					Quote:     inQuote,
 					ClassName: className,
 				})
 			} else {
 				// Fallback for empty strings
 				frags = append(frags, &deck.Fragment{
 					Value: "",
+					Quote: inQuote,
 				})
 			}
 		case *ast.CodeSpan:
@@ -588,6 +606,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 				Bold:          children[0].Bold,
 				Italic:        children[0].Italic,
 				Code:          true,
+				Quote:         inQuote || children[0].Quote,
 				SoftLineBreak: children[0].SoftLineBreak,
 				ClassName:     className,
 			})
@@ -598,6 +617,7 @@ func toFragments(baseDir string, b []byte, n ast.Node) (_ []*deck.Fragment, _ []
 				Value:         "\n",
 				Bold:          false,
 				SoftLineBreak: false,
+				Quote:         inQuote,
 			})
 		}
 	}

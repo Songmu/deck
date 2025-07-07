@@ -55,6 +55,7 @@ type Fragment struct {
 	Italic        bool   `json:"italic,omitempty"`
 	Link          string `json:"link,omitempty"`
 	Code          bool   `json:"code,omitempty"`
+	Quote         bool   `json:"quote,omitempty"`
 	SoftLineBreak bool   `json:"softLineBreak,omitempty"`
 	ClassName     string `json:"className,omitempty"`
 }

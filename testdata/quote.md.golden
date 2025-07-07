@@ -1,0 +1,155 @@
+[
+  {
+    "layout": "",
+    "titles": [
+      "Title with \u003cq\u003equoted text\u003c/q\u003e"
+    ],
+    "subtitles": [
+      "Subtitle with \u003cq\u003ea quote\u003c/q\u003e example"
+    ],
+    "bodies": [
+      {
+        "paragraphs": [
+          {
+            "fragments": [
+              {
+                "value": "Some text with "
+              },
+              {
+                "value": "inline quote",
+                "quote": true
+              },
+              {
+                "value": " in the middle."
+              }
+            ]
+          },
+          {
+            "fragments": [
+              {
+                "value": "Custom styled quote",
+                "quote": true,
+                "className": "custom"
+              },
+              {
+                "value": " with a class."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "layout": "",
+    "titles": [
+      "Various quote styles"
+    ],
+    "bodies": [
+      {
+        "paragraphs": [
+          {
+            "fragments": [
+              {
+                "value": "Regular quote: "
+              },
+              {
+                "value": "This is a quote",
+                "quote": true
+              }
+            ],
+            "bullet": "-"
+          },
+          {
+            "fragments": [
+              {
+                "value": "Bold with quote",
+                "bold": true
+              },
+              {
+                "value": ": "
+              },
+              {
+                "value": "Bold quoted text",
+                "bold": true,
+                "quote": true
+              }
+            ],
+            "bullet": "-"
+          },
+          {
+            "fragments": [
+              {
+                "value": "Italic with quote",
+                "italic": true
+              },
+              {
+                "value": ": "
+              },
+              {
+                "value": "Italic quoted text",
+                "italic": true,
+                "quote": true
+              }
+            ],
+            "bullet": "-"
+          },
+          {
+            "fragments": [
+              {
+                "value": "Quote with "
+              },
+              {
+                "value": "code",
+                "code": true
+              },
+              {
+                "value": ": "
+              },
+              {
+                "value": "This is ",
+                "quote": true
+              },
+              {
+                "value": "inline code",
+                "code": true,
+                "quote": true
+              },
+              {
+                "value": " in a quote",
+                "quote": true
+              }
+            ],
+            "bullet": "-"
+          },
+          {
+            "fragments": [
+              {
+                "value": "Nested formatting: "
+              },
+              {
+                "value": "Quote with ",
+                "quote": true
+              },
+              {
+                "value": "bold",
+                "bold": true,
+                "quote": true
+              },
+              {
+                "value": " and ",
+                "quote": true
+              },
+              {
+                "value": "italic",
+                "italic": true,
+                "quote": true
+              }
+            ],
+            "bullet": "-"
+          }
+        ]
+      }
+    ]
+  }
+]
