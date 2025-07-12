@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.39.0](https://github.com/Songmu/deck/compare/v0.29.1...v0.39.0) - 2025-07-12
+
 ## [v0.39.0](https://github.com/k1LoW/deck/compare/v0.38.0...v0.39.0) - 2025-07-10
 ### New Features 🎉
 - perf: add debounce function to avoid busy loop while watching by @Songmu in https://github.com/k1LoW/deck/pull/227
